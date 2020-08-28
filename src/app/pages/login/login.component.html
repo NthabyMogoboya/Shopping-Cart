@@ -1,0 +1,12 @@
+<body style="background-color: rgb(252, 242, 228);">
+  <h2>Forever Twenty-1</h2>
+  <form class="signin" method="POST" (ngSubmit)="login(form)">
+    <h3>Login</h3>
+    <input type="text" [(ngModel)]="loginUserData.username" id="username" placeholder="Enter username..."><br><br>
+    <input type="password" [(ngModel)]="loginUserData.password" id="password" placeholder="Enter password..."><br><br>
+    <input type="button" id="" (click)="Login()" value="LOGIN">
+  </form>
+  <div align="end">
+    <img height="300px" src="assets/purse.png"/>
+  </div>
+</body>

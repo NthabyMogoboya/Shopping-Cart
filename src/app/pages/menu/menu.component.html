@@ -1,0 +1,23 @@
+<body style="background-color: blanchedalmond; width: 100%;">
+<div class="fab" align="end">
+
+    <button (click)="openDialog()" mat-fab color="white" aria-label="icon button">
+      {{itemCount | async}}<img height="36px" src="assets/cart3.png"/>
+    </button>
+</div>
+  <h2>Forever Twenty-1</h2>
+  <mat-grid-list cols="4" rowHeight="5:6">
+    <mat-grid-tile *ngFor="let i of items">
+      <mat-card>
+
+        <img class="imageClass" [src]='i.photo' height="300px">
+        <mat-card-content>
+          <h4>{{i.name}}</h4>
+          <h3>Price: ZAR{{i.price}}</h3>
+          <button (click)="addToCart(i)">Add to Cart</button>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</body>

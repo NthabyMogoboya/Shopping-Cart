@@ -1,0 +1,15 @@
+<mat-dialog-content>
+  <mat-list *ngFor="let c of cart">
+    <mat-list-item> R{{c.price}}x {{c.amount}} {{c.name}} <img (click)="deleteProduct(c)" src="assets/delete.png" /></mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+  <mat-list>
+    <mat-list-item>
+      <b>Total : </b>
+      {{getTotal() | currency:' R'}}
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
