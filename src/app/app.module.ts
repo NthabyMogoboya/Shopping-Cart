@@ -15,7 +15,12 @@ import {MatListModule} from '@angular/material/list';
 import { LoginComponent } from './pages/login/login.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-
+import {MatTableModule} from '@angular/material/table';
+import { AngularFireModule} from '@angular/fire'
+import { AngularFireDatabaseModule } from '@angular/fire/database'
+import { AngularFirestoreModule } from '@angular/fire/firestore'
+import { environment } from '../environments/environment'
+import {AngularFireAuthModule } from '@angular/fire/auth'
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +40,12 @@ import { FormsModule } from '@angular/forms';
     MatDividerModule,
     MatListModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

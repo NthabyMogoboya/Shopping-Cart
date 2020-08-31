@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service'
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -8,30 +10,47 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  name: string;
-  password: any;
-  login: any;
+  email =""
+  password =""
+  errorMessage = ""
+  error: {name: string, message: string} = { name: "", message: ""}
 
-  loginUserData = {
-    username: "",
-    password:  ""
-  };
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
   }
 
-  async Login(){
+  clearErrorMessage(){
+    this.errorMessage = "";
+    this.error = { name: '', message: ''};
+  }
 
-    //Validation
-    // if(this.loginUserData.username ==""){
-    //   alert("Provide Username");
-    // }else if(this.loginUserData.password ==""){
-    //   alert("Provide password");
-    // }else{
-      this.router.navigate(['menu'])
-   // }
+  login(){
+    this.clearErrorMessage();
+
+    if(this.validateForm(this.email,this.password)){
+      this.auth.loginEmail(this.email, this.password)
+    .then(() => {
+      this.router.navigate(['/menu'])
+    }).catch(_error => {
+      this.error = _error
+      this.router.navigate(['/login'])
+    })
+    }
+  }
+
+  validateForm(email, password){
+    if(email.length === 0){
+      this.errorMessage = "Please Enter Email Address";
+      return false;
+    }
+    if(password.length === 0){
+      this.errorMessage = "Please Enter Password";
+      return false;
+    }
+
+    this.errorMessage = "";
+    return true;
   }
 
 }

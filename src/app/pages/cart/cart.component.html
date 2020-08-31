@@ -1,8 +1,39 @@
 <mat-dialog-content>
-  <mat-list *ngFor="let c of cart">
-    <mat-list-item> R{{c.price}}x {{c.amount}} {{c.name}} <img (click)="deleteProduct(c)" src="assets/delete.png" /></mat-list-item>
-    <mat-divider></mat-divider>
-  </mat-list>
+
+  <!--<mat-table [dataSource]="cart" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+      <mat-cell *matCellDef="let c"> {{c.amount}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Product Name </mat-header-cell>
+      <mat-cell *matCellDef="let c"> {{c.name}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+      <mat-cell *matCellDef="let c"> {{c.price}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+      <mat-cell *matCellDef="let c">  <img (click)="deleteProduct(c)" src="assets/delete.png" /> </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>-->
+     <mat-list *ngFor="let c of cart">
+      <mat-list-item>
+     R{{c.price}} x   {{c.amount}}   {{c.name}}   <img (click)="deleteProduct(c)" src="assets/delete.png" />
+    </mat-list-item>
+     </mat-list>
+
   <mat-list>
     <mat-list-item>
       <b>Total : </b>

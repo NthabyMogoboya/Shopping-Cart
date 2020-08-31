@@ -1,11 +1,15 @@
 <body style="background-color: rgb(252, 242, 228);">
   <h2>Forever Twenty-1</h2>
-  <form class="signin" method="POST" (ngSubmit)="login(form)">
+  <form class="signin" method="POST" (ngSubmit)="login()">
     <h3>Login</h3>
-    <input type="text" [(ngModel)]="loginUserData.username" id="username" placeholder="Enter username..."><br><br>
-    <input type="password" [(ngModel)]="loginUserData.password" id="password" placeholder="Enter password..."><br><br>
-    <input type="button" id="" (click)="Login()" value="LOGIN">
+    <input type="text" [(ngModel)]="email" name="email" placeholder="Enter Email Address..."><br><br>
+    <input type="password" [(ngModel)]="password" name="password" placeholder="Enter password..."><br><br>
+    <button type="submit" id=""  class="btn btn-primary">LOGIN</button>
   </form>
+  <div class="form-group">
+    <p *ngIf="errorMessage.length > 0" class="text-danger" >{{errorMessage}} </p>
+    <p *ngIf="error.message.length > 0" class="text-danger" >{{error.message}} </p>
+  </div>
   <div align="end">
     <img height="300px" src="assets/purse.png"/>
   </div>

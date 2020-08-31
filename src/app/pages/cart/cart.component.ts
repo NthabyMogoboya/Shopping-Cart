@@ -13,6 +13,8 @@ export class CartComponent implements OnInit {
 
   constructor(private productService: ProductsService) { }
 
+  displayedColumns: string[] = ['amount', 'name', 'price', 'delete'];
+
   ngOnInit() {
    this.cart = this.productService.getCart();
 
