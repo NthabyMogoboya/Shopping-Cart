@@ -5,7 +5,14 @@
       {{itemCount | async}}<img height="36px" src="assets/cart3.png"/>
     </button>
 </div>
-  <h2>Forever Twenty-1</h2>
+  <h2>Mash</h2>
+
+  <input type="file" (change)="insertFile($event)">
+  <div>{{ uploadPercent | async }}</div>
+    <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
+    <br><img [src]="profileUrl | async" height="300px" />
+
+
   <mat-grid-list cols="4" rowHeight="5:6">
     <mat-grid-tile *ngFor="let i of items">
       <mat-card>
@@ -19,5 +26,6 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-
+  
+  
 </body>
