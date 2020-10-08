@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/service/products.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialog} from '@angular/material/dialog';
 import { CartComponent } from '../cart/cart.component';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -17,9 +19,17 @@ export class MenuComponent implements OnInit {
   cart = [];
   items = [];
   itemCount: BehaviorSubject<number>;
+  image;
+  
+  
+  profileUrl: Observable<string | null>;
 
-
-  constructor(private  dialog: MatDialog, private productsService: ProductsService, private router: Router, private matGrid: MatGridListModule) { }
+  constructor(private storage: AngularFireStorage, private  dialog: MatDialog,
+               private productsService: ProductsService, private router: Router, 
+               private matGrid: MatGridListModule) {
+                const ref = this.storage.ref('Clothes/dress.jpg');
+                this.profileUrl = ref.getDownloadURL();
+   }
 
   ngOnInit() {
     this.cart = this.productsService.getCart();
@@ -40,5 +50,9 @@ export class MenuComponent implements OnInit {
   }
   openCart(){
     this.router.navigate(['cart'])
+  }
+
+  insertFile(event){
+    this.productsService.uploadFile(event)
   }
 }
