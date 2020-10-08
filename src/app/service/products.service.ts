@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 export interface Product{
   id: number;
@@ -15,7 +18,8 @@ export interface Product{
 
 export class ProductsService {
 
-  constructor() { }
+
+  constructor(private storage: AngularFireStorage, private afs: AngularFirestore) { }
 
   data: Product[] = [
         {id: 0, name: 'Blue Summer Dress', price: 300, amount: 1, photo:'assets/dress.jpg'},
@@ -34,6 +38,8 @@ export class ProductsService {
 
   private cart = [];
   private itemCount = new BehaviorSubject(0);
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
 
   getClothes(){
     return this.data;
@@ -70,4 +76,34 @@ export class ProductsService {
              }
            }
   }
+
+  //upload file
+  uploadFile(event) {
+    const file = event.target.files[0];
+    const filePath = 'Clothes/'+ this.generateID(6)+'';
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    
+    // observe percentage changes
+    this.uploadPercent = task.percentageChanges();
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+        finalize(() => this.downloadURL = fileRef.getDownloadURL() )
+     )
+    .subscribe()
+  }
+  
+  generateID(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
+
+ getImage(){
+   return this.afs.collection('Clothes').snapshotChanges();
+ }
 }
