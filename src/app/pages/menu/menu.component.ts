@@ -27,14 +27,21 @@ export class MenuComponent implements OnInit {
   constructor(private storage: AngularFireStorage, private  dialog: MatDialog,
                private productsService: ProductsService, private router: Router, 
                private matGrid: MatGridListModule) {
-                const ref = this.storage.ref('Clothes/dress.jpg');
-                this.profileUrl = ref.getDownloadURL();
    }
 
   ngOnInit() {
     this.cart = this.productsService.getCart();
-    this.items = this.productsService.getClothes();
+    //this.items = this.productsService.getClothes();
     this.itemCount = this.productsService.getItemCount();
+
+    this.productsService.getImage().subscribe(data_I => {
+      this.items = [];
+      data_I.forEach( a => {
+        let data: any = a.payload.doc.data();
+        data.id = a.payload.doc.id;
+        this.items.push(data);
+      })
+    })
   }
 
   addToCart(product){
