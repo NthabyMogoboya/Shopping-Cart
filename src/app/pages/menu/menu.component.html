@@ -7,17 +7,11 @@
 </div>
   <h2>Mash</h2>
 
-  <input type="file" (change)="insertFile($event)">
-  <div>{{ uploadPercent | async }}</div>
-    <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
-    <br><img [src]="profileUrl | async" height="300px" />
-
-
   <mat-grid-list cols="4" rowHeight="5:6">
     <mat-grid-tile *ngFor="let i of items">
       <mat-card>
 
-        <img class="imageClass" [src]='i.photo' height="300px">
+        <img class="imageClass" [src]='i.image' height="300px">
         <mat-card-content>
           <h4>{{i.name}}</h4>
           <h3>Price: ZAR{{i.price}}</h3>
